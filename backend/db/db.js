@@ -22,8 +22,6 @@ const connectDB = async () => {
 
     await mongoose.connect(process.env.MONGODB_URI, {
       dbName: "WebCrafterAI",
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
     });
 
     isConnected = true;
