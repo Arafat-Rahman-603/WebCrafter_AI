@@ -5,42 +5,55 @@ import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const findOrCreateGoogleUser = async (payload) => {
-  const email = payload.email.toLowerCase();
-  let user = await User.findOne({
-    $or: [{ googleId: payload.sub }, { email }],
-  });
-
-  if (!user) {
-    user = await User.create({
-      name: payload.name || email.split("@")[0],
-      email,
-      googleId: payload.sub,
-      authProvider: "google",
-      isVerified: true,
-      profilePicture: payload.picture || "",
+  try {
+    const email = payload.email.toLowerCase();
+    let user = await User.findOne({
+      $or: [{ googleId: payload.sub }, { email }],
     });
-  } else {
-    // Update user info if it changed
-    user.googleId = payload.sub;
-    user.authProvider = "google";
-    user.isVerified = true;
 
-    if (payload.name && user.name !== payload.name) {
-      user.name = payload.name;
+    if (!user) {
+      user = await User.create({
+        name: payload.name || email.split("@")[0],
+        email,
+        googleId: payload.sub,
+        authProvider: "google",
+        isVerified: true,
+        profilePicture: payload.picture || "",
+      });
+    } else {
+      // Update user info if it changed
+      user.googleId = payload.sub;
+      user.authProvider = "google";
+      user.isVerified = true;
+
+      if (payload.name && user.name !== payload.name) {
+        user.name = payload.name;
+      }
+
+      if (payload.picture) {
+        user.profilePicture = payload.picture;
+      }
+
+      await user.save();
     }
 
-    if (payload.picture) {
-      user.profilePicture = payload.picture;
-    }
-
-    await user.save();
+    return user;
+  } catch (error) {
+    console.error("[Auth] Database error in findOrCreateGoogleUser:", error);
+    throw new Error("Database error during user authentication");
   }
-
-  return user;
 };
 
 export const googleAuth = async (req, res) => {
   const { credential } = req.body;
+
+  if (!process.env.GOOGLE_CLIENT_ID) {
+    console.error("[Auth] Missing GOOGLE_CLIENT_ID in environment variables");
+    return res.status(500).json({
+      success: false,
+      message: "Server configuration error: GOOGLE_CLIENT_ID is missing",
+    });
+  }
 
   if (!credential) {
     return res
@@ -59,7 +72,7 @@ export const googleAuth = async (req, res) => {
     if (!payload?.email || !payload.sub) {
       return res
         .status(400)
-        .json({ success: false, message: "Invalid Google token" });
+        .json({ success: false, message: "Invalid Google token payload" });
     }
 
     const user = await findOrCreateGoogleUser(payload);
@@ -80,10 +93,12 @@ export const googleAuth = async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error("Google auth error:", error);
-    return res
-      .status(500)
-      .json({ success: false, message: "Google authentication failed" });
+    console.error("Google auth error detail:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Google authentication failed",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined,
+    });
   }
 };
 
