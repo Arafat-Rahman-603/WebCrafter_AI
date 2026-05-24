@@ -22,7 +22,13 @@ app.use(
   cors({
     origin: (origin, callback) => {
       // Allow requests with no origin (e.g. curl, Postman)
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin) return callback(null, true);
+
+      // Check if origin is in the allowed list or is a Vercel deployment URL
+      const isAllowed =
+        allowedOrigins.includes(origin) || origin.endsWith(".vercel.app");
+
+      if (isAllowed) {
         callback(null, true);
       } else {
         callback(new Error(`CORS blocked: ${origin}`));
@@ -48,4 +54,3 @@ app.use("/api/user", userRoutes);
 app.use("/api/website", websiteRoutes);
 
 export default app;
-

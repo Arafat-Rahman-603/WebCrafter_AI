@@ -1,11 +1,15 @@
 import User from "../model/user.model.js";
 import { OAuth2Client } from "google-auth-library";
 import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
+import connectDB from "../db/db.js";
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const findOrCreateGoogleUser = async (payload) => {
   try {
+    // Ensure DB is connected before query
+    await connectDB();
+
     const email = payload.email.toLowerCase();
     let user = await User.findOne({
       $or: [{ googleId: payload.sub }, { email }],
@@ -125,6 +129,7 @@ export const logout = (req, res) => {
 // Check Auth - for frontend validation on page reload
 export const checkAuth = async (req, res) => {
   try {
+    await connectDB();
     const user = await User.findById(req.userId);
 
     if (!user) {
