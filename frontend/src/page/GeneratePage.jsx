@@ -8,24 +8,24 @@ import { useRouter } from "next/navigation";
 
 const MODELS = [
   {
-    id: "arcee-ai/trinity-large-thinking:free",
-    name: "Arcee AI",
+    id: "openai/gpt-oss-20b:free",
+    name: "GPT-oss",
     description: "Lightning-fast generation for sleek and modern layouts.",
     badge: "Fast",
     icon: "⚡",
     color: "from-amber-400 to-orange-500",
   },
   {
-    id: "baidu/cobuddy:free",
-    name: "Baidu Qianfan",
+    id: "openai/gpt-oss-120b:free",
+    name: "GPT-OSS-120B",
     description: "Deep thinking capabilities, best for logical structures.",
     badge: "Thinking",
     icon: "🧠",
     color: "from-blue-400 to-indigo-500",
   },
   {
-    id: "openrouter/owl-alpha",
-    name: "owl-alpha",
+    id: "poolside/laguna-xs.2:free",
+    name: "Laguna",
     description: "Processes extensive layout requirements and detailed copy.",
     badge: "Long Context",
     icon: "🦉",

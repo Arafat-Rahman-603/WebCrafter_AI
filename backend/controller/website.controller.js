@@ -25,9 +25,9 @@ export const generateWebsite = async (req, res) => {
     }
 
     const allowedModels = [
-      "arcee-ai/trinity-large-thinking:free",
-      "baidu/cobuddy:free",
-      "openrouter/owl-alpha",
+      "openai/gpt-oss-20b:free",
+      "openai/gpt-oss-120b:free",
+      "poolside/laguna-xs.2:free",
     ];
     const selectedModel = allowedModels.includes(model)
       ? model
