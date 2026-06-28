@@ -31,7 +31,7 @@ export default function EditorPage({ params }) {
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessage, setChatMessage] = useState("");
   const [conversation, setConversation] = useState([]);
-  const [selectedModel, setSelectedModel] = useState("arcee-ai/trinity-large-thinking:free");
+  const [selectedModel, setSelectedModel] = useState("cohere/north-mini-code:free");
   const [isFixing, setIsFixing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeploying, setIsDeploying] = useState(false);
