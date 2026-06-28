@@ -161,9 +161,9 @@ export const fixWebsite = async (req, res) => {
     }
 
     const allowedModels = [
-      "arcee-ai/trinity-large-thinking:free",
-      "baidu/cobuddy:free",
-      "openrouter/owl-alpha",
+      "cohere/north-mini-code:free",
+      "openai/gpt-oss-20b:free",
+      "openai/gpt-oss-120b:free",
     ];
 
     const user = await User.findById(userId);
