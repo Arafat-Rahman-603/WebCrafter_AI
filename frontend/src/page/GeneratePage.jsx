@@ -8,10 +8,10 @@ import { useRouter } from "next/navigation";
 
 const MODELS = [
   {
-    id: "openai/gpt-oss-20b:free",
-    name: "GPT-oss",
+    id: "cohere/north-mini-code:free",
+    name: "Cohere",
     description: "Lightning-fast generation for sleek and modern layouts.",
-    badge: "Fast",
+    badge: "Thinking",
     icon: "⚡",
     color: "from-amber-400 to-orange-500",
   },

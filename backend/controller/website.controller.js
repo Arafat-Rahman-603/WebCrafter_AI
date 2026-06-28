@@ -25,13 +25,14 @@ export const generateWebsite = async (req, res) => {
     }
 
     const allowedModels = [
-      "openai/gpt-oss-20b:free",
+      "cohere/north-mini-code:free",
       "openai/gpt-oss-120b:free",
       "poolside/laguna-xs.2:free",
+      "nex-agi/nex-n2-pro:free"
     ];
     const selectedModel = allowedModels.includes(model)
       ? model
-      : "arcee-ai/trinity-large-thinking:free";
+      : "openai/gpt-oss-20b:free";
 
     const user = await User.findById(userId);
     if (!user)
@@ -73,7 +74,7 @@ export const generateWebsite = async (req, res) => {
         { role: "assistant", content: "Generated initial website markup." },
       ],
     });
-
+    await console.log(newWebsite);
     await newWebsite.save();
 
     if (user.credits !== undefined) {
