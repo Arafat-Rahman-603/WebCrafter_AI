@@ -28,7 +28,8 @@ export const generateWebsite = async (req, res) => {
       "cohere/north-mini-code:free",
       "openai/gpt-oss-120b:free",
       "poolside/laguna-xs.2:free",
-      "nex-agi/nex-n2-pro:free"
+      "nex-agi/nex-n2-pro:free",
+      "poolside/laguna-xs-2.1:free"
     ];
     const selectedModel = allowedModels.includes(model)
       ? model
@@ -164,6 +165,7 @@ export const fixWebsite = async (req, res) => {
       "cohere/north-mini-code:free",
       "openai/gpt-oss-20b:free",
       "openai/gpt-oss-120b:free",
+      "poolside/laguna-xs-2.1:free"
     ];
 
     const user = await User.findById(userId);

@@ -24,8 +24,8 @@ const MODELS = [
     color: "from-blue-400 to-indigo-500",
   },
   {
-    id: "poolside/laguna-xs.2:free",
-    name: "Laguna",
+    id: "poolside/laguna-xs-2.1:free",
+    name: "Laguna-2.1",
     description: "Processes extensive layout requirements and detailed copy.",
     badge: "Long Context",
     icon: "🦉",
