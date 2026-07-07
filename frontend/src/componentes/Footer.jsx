@@ -55,6 +55,10 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const Subscribe = () => {
+  alert("Subscribed!");
+};
+
   return (
     <footer className="bg-[#0a0f1e] text-slate-300 relative overflow-hidden border-t border-white/5 pt-16 pb-8 mt-auto z-10 block">
       {/* Subtle Background Glows */}
@@ -86,7 +90,7 @@ export default function Footer() {
                   placeholder="Enter your email"
                   className="w-full bg-transparent border-none text-sm text-white px-3 py-2 focus:outline-none focus:ring-0 placeholder-slate-500"
                 />
-                <button className="whitespace-nowrap px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 transition-all shadow-sm">
+                <button className="whitespace-nowrap px-4 py-2 text-sm font-medium text-white rounded-lg bg-gradient-to-r from-blue-600 to-violet-600 hover:from-blue-500 hover:to-violet-500 transition-all shadow-sm" onClick={()=> Subscribe()}>
                   Subscribe
                 </button>
               </div>
